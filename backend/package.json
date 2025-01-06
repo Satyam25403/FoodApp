@@ -4,7 +4,7 @@
   "main": "server.js",
   "type":"module",
   "scripts": {
-    "server": "node --watch --trace-warnings server.js"
+    "dev": "node --watch --trace-warnings server.js"
   },
   "author": "",
   "license": "ISC",
