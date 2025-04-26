@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import './Navbar.css'
 import { assets } from '../../assets/assets'
+import {Link} from 'react-router-dom'
+
 
 const Navbar = () => {
 
@@ -14,10 +16,10 @@ const Navbar = () => {
 
         {/* components of navbar: classNames are changed dynamically to active to apply active class properties {underlined effect} on the active tab */}
         <ul className="navbar-menu">
-          <li onClick={()=>setMenu("home")} className={menu==="home"?"active":""}>home</li>
-          <li onClick={()=>setMenu("menu")} className={menu==="menu"?"active":""}>menu</li>
-          <li onClick={()=>setMenu("mobile-app")} className={menu==="mobile-app"?"active":""}>mobile-app</li>
-          <li onClick={()=>setMenu("contact-us")} className={menu==="contact-us"?"active":""}>contact-us</li>
+          <Link onClick={()=>setMenu("home")} className={menu==="home"?"active":""}>home</Link>
+          <a to='/' href='#explore-menu' onClick={()=>setMenu("menu")} className={menu==="menu"?"active":""}>menu</a>
+          <a href='#app-download' onClick={()=>setMenu("mobile-app")} className={menu==="mobile-app"?"active":""}>mobile-app</a>
+          <a href='#footer' onClick={()=>setMenu("contact-us")} className={menu==="contact-us"?"active":""}>contact-us</a>
         </ul>
         
 
