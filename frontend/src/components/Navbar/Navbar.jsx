@@ -4,7 +4,10 @@ import { assets } from '../../assets/assets'
 import {Link} from 'react-router-dom'
 
 
-const Navbar = () => {
+const Navbar = ({setShowLogin}) => {
+
+  // destructure setShowLogin to handle login-signUp
+
 
 
   // to add the underline effect to show which tab home or contcact etc is active
@@ -12,7 +15,10 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-        <img className="logo" src={assets.logo} alt="" />
+
+
+        {/* click on logo to go to home */}
+        <Link to='/'><img className="logo" src={assets.logo} alt="" /></Link>
 
         {/* components of navbar: classNames are changed dynamically to active to apply active class properties {underlined effect} on the active tab */}
         <ul className="navbar-menu">
@@ -27,12 +33,18 @@ const Navbar = () => {
         <div className="navbar-right">
             <img src={assets.search_icon} />
             <div className="navbar-search-icon">
-                <img src={assets.basket_icon}/>
+
+                {/* to link basket icon to 'cart' route */}
+                <Link to='/cart'><img src={assets.basket_icon}/></Link>
 
                 {/* if something in basket, display dot otherwise hide the dot */}
                 <div className="dot"></div>
             </div>
-            <button>sign in</button>
+
+
+            {/* upon clicking this render login popup */}
+            <button onClick={()=>setShowLogin(true)}>sign in</button>
+            
         </div>
     </div>
   )
