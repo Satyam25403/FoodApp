@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './Navbar.css'
 import { assets } from '../../assets/assets'
 import {Link} from 'react-router-dom'
+import { StoreContext } from '../../Context/StoreContext'
 
 
 const Navbar = ({setShowLogin}) => {
@@ -12,6 +13,9 @@ const Navbar = ({setShowLogin}) => {
 
   // to add the underline effect to show which tab home or contcact etc is active
   const [menu,setMenu] =useState("home");
+
+  //to render the red dot if cart is not empty: using dynamic className
+  const {getTotalCartAmount} =useContext(StoreContext);
 
   return (
     <div className="navbar">
@@ -38,7 +42,7 @@ const Navbar = ({setShowLogin}) => {
                 <Link to='/cart'><img src={assets.basket_icon}/></Link>
 
                 {/* if something in basket, display dot otherwise hide the dot */}
-                <div className="dot"></div>
+                <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
             </div>
 
 
