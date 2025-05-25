@@ -12,34 +12,33 @@ const PORT=4000;
 
 //middlewares
 app.use(express.json())         //whenever request comes from frontend to backend, this will parse it
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(cors());            //we can access backend from any frontend
 
+
+// use environment variables
 dotenv.config();
 
 //db connection
 connectDb(process.env.MONGODB_CONNECTION_URI);
 
-//api  endpoints
-
+//api endpoints : food is collection here in mongodb database
 app.use("/api/food",foodRouter);
+
+//we can access the image in mongodb database and show it to user: uploads folder exposed on this end point
 app.use("/images",express.static("uploads"));
-app.use("/api/user",userRouter);
+// app.use("/api/user",userRouter);
 
 
 
 
 
-
-
-
-
+//request data from server from an end point
 app.get("/",(req,res)=>{
     res.send("Api working")
 });
 
-
-
 //run express server
 app.listen(PORT,()=>{
-    console.log(`Server dtarted on port ${PORT}`)
+    console.log(`Server started on port ${PORT}`)
 })

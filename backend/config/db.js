@@ -5,7 +5,7 @@ dotenv.config();
 
 export const connectDb=async(string)=>{
     await mongoose.connect(string).then(()=>{
-        console.log("mongoose connected");
+        console.log("Database connected");
     });
 }
 
