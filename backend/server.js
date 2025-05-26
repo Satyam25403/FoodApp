@@ -22,12 +22,13 @@ dotenv.config();
 //db connection
 connectDb(process.env.MONGODB_CONNECTION_URI);
 
-//api endpoints : food is collection here in mongodb database
-app.use("/api/food",foodRouter);
+
 
 //we can access the image in mongodb database and show it to user: uploads folder exposed on this end point
 app.use("/images",express.static("uploads"));
-// app.use("/api/user",userRouter);
+//api endpoints : food,user are collections here in mongodb database
+app.use("/api/food",foodRouter);
+app.use("/api/user",userRouter);
 
 
 

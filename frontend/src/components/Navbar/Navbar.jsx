@@ -1,21 +1,30 @@
 import React, { useContext, useState } from 'react'
 import './Navbar.css'
 import { assets } from '../../assets/assets'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { StoreContext } from '../../Context/StoreContext'
 
 
 const Navbar = ({setShowLogin}) => {
 
   // destructure setShowLogin to handle login-signUp
-
-
-
   // to add the underline effect to show which tab home or contcact etc is active
   const [menu,setMenu] =useState("home");
 
   //to render the red dot if cart is not empty: using dynamic className
-  const {getTotalCartAmount} =useContext(StoreContext);
+  const {getTotalCartAmount,token,setToken} =useContext(StoreContext);
+
+  // useNavigate to redirect user
+  const navigate= useNavigate();
+
+  
+  const logout=()=>{
+
+    // remove token and redirect
+    localStorage.removeItem("token")
+    setToken("");
+    navigate("/")
+  }
 
   return (
     <div className="navbar">
@@ -46,9 +55,18 @@ const Navbar = ({setShowLogin}) => {
             </div>
 
 
-            {/* upon clicking this render login popup */}
-            <button onClick={()=>setShowLogin(true)}>sign in</button>
-            
+            {/* if token not available? render login : render profile */}
+            {!token ? <button onClick={()=>setShowLogin(true)}>sign in</button>
+                    : <div className="navbar-profile">
+                        <img src={assets.profile_icon}/>
+                        <ul className="nav-profile-dropdown">
+                          <li><img src={assets.bag_icon} /><p>Orders</p></li>            
+                          <hr/>
+                          <li onClick={logout}><img src={assets.logout_icon} /><p>Logout</p></li>
+                        </ul>
+                      </div>
+            }
+
         </div>
     </div>
   )
