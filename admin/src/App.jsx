@@ -12,6 +12,9 @@ import 'react-toastify/dist/ReactToastify.css'
 
 
 const App = () => {
+
+  const url="http://localhost:4000"
+
   return (
     <div>
       <ToastContainer/>
@@ -24,13 +27,13 @@ const App = () => {
         <Routes>
 
           {/* mount Add component to /add path */}
-          <Route path="/add" element={<Add/>} />
+          <Route path="/add" element={<Add url={url}/>} />
 
           {/* mount List component to /list path */}
-          <Route path="/list" element={<List/>} />
+          <Route path="/list" element={<List url={url}/>} />
 
           {/* mount Orders component to /orders path */}
-          <Route path="/orders" element={<Orders/>} />
+          <Route path="/orders" element={<Orders url={url}/>} />
           
         </Routes>
       </div>
