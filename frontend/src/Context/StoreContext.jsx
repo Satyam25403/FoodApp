@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
-import { food_list } from "../assets/assets";
+import axios from "axios"
+
 
 export const StoreContext = createContext(null);
 
@@ -11,6 +12,9 @@ const StoreContextProvider = (props) => {
     const url="http://localhost:4000"
 
     const [token,setToken]=useState("");
+
+    // store list of FoodItems
+    const [food_list,setFoodlist] =useState([])
 
     const addToCart=(itemId)=>{
 
@@ -42,13 +46,24 @@ const StoreContextProvider = (props) => {
         return totalAmount;
     }
 
+    const fetchFoodList =async ()=>{
+        const res=await axios.get(url+"/api/food/list");
+        setFoodlist(res.data.data)
+    }
+
 
     // if user is logged in and refreshes the page... 
     // to prevent logout we restore the token using setToken, unless token is explicitly cleared upon user logout action
     useEffect(()=>{
-        if(localStorage.getItem("token")){
-            setToken(localStorage.getItem("token"))
+        // empty dependency array means it is run once when component is mounted i.e page reload here
+        async function loadData() {
+            await fetchFoodList();
+            if(localStorage.getItem("token")){
+                setToken(localStorage.getItem("token"))
+            }
         }
+
+        loadData()
     },[])
 
 
