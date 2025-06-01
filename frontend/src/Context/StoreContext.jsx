@@ -16,7 +16,7 @@ const StoreContextProvider = (props) => {
     // store list of FoodItems
     const [food_list,setFoodlist] =useState([])
 
-    const addToCart=(itemId)=>{
+    const addToCart= async(itemId)=>{
 
         // if item with itemId already there in cart ? increase counter : add it first time to cart
         if(!cartItems[itemId]){
@@ -25,11 +25,20 @@ const StoreContextProvider = (props) => {
         else{
             setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
         }
+
+        if(token){
+            // if token available(logged in) and we select the items, update database and set token with itemId in header
+            await axios.post(url+"/api/cart/add",{itemId},{headers:{token}})
+        }
     }
 
     
-    const removeFromCart=(itemId)=>{
+    const removeFromCart= async(itemId)=>{
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}))
+        if(token){
+            // if token available(logged in) and we select the items, update database and set token with itemId in header
+            await axios.post(url+"/api/cart/remove",{itemId},{headers:{token}})
+        }
     }
 
     const getTotalCartAmount= ()=>{
@@ -52,6 +61,14 @@ const StoreContextProvider = (props) => {
     }
 
 
+    // upon page reload, the added items state is not rerendering on the page....we need to persist the items that we added to cart on the items page
+    const loadCartData=async(token)=>{
+        // we dont need to send anything in req body hence empty object we are sending
+        const response =await axios.post(url+"/api/cart/get",{},{headers:{token}})
+        setCartItems(response.data.cartData)
+    }
+
+
     // if user is logged in and refreshes the page... 
     // to prevent logout we restore the token using setToken, unless token is explicitly cleared upon user logout action
     useEffect(()=>{
@@ -60,6 +77,7 @@ const StoreContextProvider = (props) => {
             await fetchFoodList();
             if(localStorage.getItem("token")){
                 setToken(localStorage.getItem("token"))
+                await loadCartData(localStorage.getItem("token"));
             }
         }
 

@@ -4,6 +4,8 @@ import { connectDb } from "./config/db.js";
 import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js";
 import dotenv from "dotenv";
+import cartRouter from "./routes/cartRoute.js";
+
 
 
 //app config
@@ -29,6 +31,7 @@ app.use("/images",express.static("uploads"));
 //api endpoints : food,user are collections here in mongodb database
 app.use("/api/food",foodRouter);
 app.use("/api/user",userRouter);
+app.use("/api/cart",cartRouter)
 
 
 
