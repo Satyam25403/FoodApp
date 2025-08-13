@@ -58,4 +58,28 @@ const placeOrder =async (req,res)=>{
     }
 }
 
-export {placeOrder}
+//recommended method is webhooks for payment integration
+//but for simplicity, we are using this method
+
+const verifyOrder = async (req, res) => {
+    const { orderId, success } = req.body;
+    try {
+        if(success=="true"){
+            await orderModel.findByIdAndUpdate(orderId, { payment: true });
+            res.json({ success: true, message: "Payment verified successfully" });
+        }else{
+            await orderModel.findByIdAndDelete(orderId); // delete order if payment failed
+            res.json({ success: false, message: "Payment failed, order deleted" });
+        }
+    } catch (error) {
+        console.log("Error verifying payment: ", error);
+        // Always check res.headersSent in your catch block to avoid crashing if an error occurs after a response was already sent.
+        //to gracefully handle the error
+        //if res.headersSent is true, it means a response has already been sent to the client, so we should not send another response.
+        if (!res.headersSent) {
+            return res.status(500).json({ success: false, message: "Error verifying payment" });
+        }
+    }
+}
+
+export {placeOrder, verifyOrder};

@@ -7,9 +7,6 @@ import dotenv from "dotenv";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 
-import cartRouter from "./routes/cartRoute.js";
-
-
 
 //app config
 const app=express();
