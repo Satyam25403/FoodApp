@@ -82,4 +82,17 @@ const verifyOrder = async (req, res) => {
     }
 }
 
-export {placeOrder, verifyOrder};
+
+//userOrders to display after payment is done
+const userOrders = async (req, res) => {
+    try {
+        const orders = await orderModel.find({ userId: req.params.userId })
+        res.json({ success: true, data: orders });
+    }
+    catch (error) {
+        console.log("Error fetching user orders: ", error);
+        res.json({ success: false, message: "Error fetching user orders" });
+    }
+}
+
+export {placeOrder, verifyOrder, userOrders};
