@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import './PlaceOrder.css'
 import {StoreContext} from '../../Context/StoreContext'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const PlaceOrder = () => {
 
@@ -53,6 +54,16 @@ const PlaceOrder = () => {
       alert("Something went wrong, please try again later.");
     }
   }
+
+  const navigate=useNavigate();
+
+  useEffect(()=>{
+    // if user is not logged in or cart is empty, redirect to cart page
+    // this is to prevent user from placing order without items in cart
+    if(!token || getTotalCartAmount()===0){
+      navigate("/cart");
+    }
+  },[token])
 
   return (
     <form onSubmit={placeOrder} className='place-order'>

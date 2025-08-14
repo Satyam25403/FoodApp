@@ -1,6 +1,6 @@
 import "./MyOrders.css";
 import {StoreContext} from "../../Context/StoreContext"
-
+import assets from "../../assets/assets.js";
 
 const MyOrders = () => {
 
@@ -32,9 +32,14 @@ const MyOrders = () => {
                             if(index === order.items.lenght-1){
                                 return item.name+ " x " + item.quantity;
                             }else{
+                                // for last item we don't want a comma
                                 return item.name+ " x " + item.quantity + ", ";
                             }
                         })}</p>
+                        <p>${order.amount}.00</p>
+                        <p>Items: {order.items.length}</p>
+                        <p><span>&#x25cf;</span><b>{order.status}</b></p>
+                        <button>Track order</button>
                     </div>
                 )
             })}
