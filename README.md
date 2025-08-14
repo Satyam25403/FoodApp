@@ -16,19 +16,19 @@ A full-stack **Food Delivery Application** with:
     git clone https://github.com/Satyam25403/FoodApp.git
     cd FoodApp
 
-2) Frontend (customer UI)
+### 🖥️ Terminal 1 – Frontend (Customer UI)
 
     cd frontend
     npm install
     npm run dev
 
-3) Backend (API) — open another terminal
+### ⚙️ Terminal 2 – Backend (API)
 
     cd backend
     npm install
     npm start
 
-4) Admin Dashboard — open another terminal
+### 📊 Terminal 3 – Admin Dashboard
 
     cd admin
     npm install
