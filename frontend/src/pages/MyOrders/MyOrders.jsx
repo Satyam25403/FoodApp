@@ -1,6 +1,9 @@
 import "./MyOrders.css";
 import {StoreContext} from "../../Context/StoreContext"
-import assets from "../../assets/assets.js";
+import {assets} from "../../assets/assets.js";
+import {useContext, useEffect, useState} from "react";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const MyOrders = () => {
 
@@ -8,7 +11,7 @@ const MyOrders = () => {
     const [data, setData] = useState([]);       //order data
 
     const fetchOrders = async () => {
-        const response= await fetch(`${url}/api/order/userorders`,{},{headers:{token}})
+        const response= await axios.post(`${url}/api/order/userorders`,{},{headers:{token}})
         setData(response.data.data);
     }
 
@@ -39,7 +42,9 @@ const MyOrders = () => {
                         <p>${order.amount}.00</p>
                         <p>Items: {order.items.length}</p>
                         <p><span>&#x25cf;</span><b>{order.status}</b></p>
-                        <button>Track order</button>
+                        
+                        {/* without needing to refresh page for inspecting the order status */}
+                        <button onClick={fetchOrders}>Track order</button>
                     </div>
                 )
             })}

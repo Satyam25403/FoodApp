@@ -22,6 +22,17 @@ const Orders = ({url}) => {
     }
   }
 
+  const statusHandler=async(event,orderId)=>{
+    const response=await axios.post(`${url}/api/order/status`,{
+      orderId,
+      status:event.target.value
+    })
+    if(response.data.success){
+      toast.success('Order status updated successfully');
+      await fetchAllOrders();     // Refresh the order list after updating status
+    }
+  }
+
   // Fetch orders when the component mounts
   useEffect(() => {
     fetchAllOrders();
@@ -53,10 +64,10 @@ const Orders = ({url}) => {
             </div>
             <p>Items: {order.items.length}</p>
             <p>${order.amount}</p>
-            <select>
-              <option value="Food being processed"></option>
-              <option value="Out for delivery"></option>
-              <option value="Delivered"></option>
+            <select onChange={(event)=>statusHandler(event,order._id)} value={order.status}>
+              <option value="Food being processed">Food being processed</option>
+              <option value="Out for delivery">Out for delivery</option>
+              <option value="Delivered">Delivered</option>
             </select>
           </div>
         ))}

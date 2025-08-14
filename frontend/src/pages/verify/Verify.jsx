@@ -19,7 +19,7 @@ const Verify = () => {
     try {
       const response = await axios.post(`${url}/api/order/verify`, {success,orderId});
 
-      if (!response.data.success || !response.data.orderId) {
+      if (!response.data.success) {
         //navigate users to my orders page if either of success or orderId is missing
         alert("Payment verification failed. Redirecting to home page.");
         navigate("/");
