@@ -12,7 +12,9 @@ A full-stack **Food Delivery Application** with:
 > Open three terminals (or use a terminal multiplexer) — one for each service.
 
 1) Clone repo and install base (optional if not already cloned)
-    
+
+###
+
     git clone https://github.com/Satyam25403/FoodApp.git
     cd FoodApp
 
