@@ -56,34 +56,12 @@ A full-stack **Food Delivery Application** with:
 
 ---
 
-## 🛠️ Tech Stack
-
-| Layer         | Technology            |
-|-------------- |-----------------------|
-| **Frontend**  | React.js, Vite, CSS   |
-| **Backend**   | Node.js, Express.js   |
-| **Database**  | MongoDB (Mongoose)    |
-| **Admin**     | React.js, TailwindCSS |
-| **Others**    | JWT, Axios            |
-
----
-
-## 📂 Folder Structure
-
-    food-delivery-app/
-    │
-    ├── frontend/   # Customer-facing UI (React + Vite)
-    ├── backend/    # API & business logic (Node + Express)
-    └── admin/      # Admin dashboard (React)
-
----
-
 ## 💳 Test Payment Instructions
 
 When testing the checkout flow in development mode, you can use the following **dummy credit card details** (Stripe test mode):
 
 - **Card Number:** `4242 4242 4242 4242`  
-- **Expiry Date:** Any future date (e.g., `12/34`)  
+- **Expiry Date:** Any future date (e.g., `MM/YY`)  
 - **CVC:** Any 3-digit number (e.g., `123`)  
 
 **Steps:**
@@ -109,6 +87,7 @@ When testing the checkout flow in development mode, you can use the following **
 
 ## 💡 Troubleshooting
 
+- Don't connect to a VPN while running services....mongodb will refuse to connect
 - If frontends cannot reach the backend: check backend `PORT`.
 - MongoDB connection errors: verify `MONGO_URI` and that MongoDB is reachable.
 - CORS errors: ensure backend sets proper CORS headers for frontend/admin origins.
@@ -116,11 +95,35 @@ When testing the checkout flow in development mode, you can use the following **
 
 ---
 
-## 🧪 Testing
+## 🐳 Running in Containerized Environments
 
-- Unit & integration tests (if included) should live inside each package (`frontend`, `backend`, `admin`) under `tests/`.
-- Run `npm test` inside the corresponding folder if tests are configured.
+## 🖥️ Frontend (Customer UI)
 
----
+### bash
+
+docker run -p 5173:5173 satyamshivam/food-app-frontend
 
 
+## ⚙️ Backend (API)
+If you already have a .env file on your host, you can pass all variables at once with --env-file:
+
+### bash
+
+docker run --env-file .env -p 4000:4000 satyamshivam/food-app-backend
+
+or you can pass individually:
+
+### bash
+
+docker run \
+-e MONGODB_CONNECTION_URI="mongodb_atlas_uri" \
+-e SECRET_KEY="some_random_string" \
+-e STRIPE_SECRET_KEY="Your_stripe_apikey" \
+-p 4000:4000 \
+satyamshivam/food-app-backend 
+
+## 📊 Admin Dashboard
+
+### bash
+
+docker run -p 5174:5174 satyamshivam/food-app-admin
