@@ -99,31 +99,31 @@ When testing the checkout flow in development mode, you can use the following **
 
 ## 🖥️ Frontend (Customer UI)
 
-### bash
+### 
 
-docker run -p 5173:5173 satyamshivam/food-app-frontend
+    docker run -p 5173:5173 satyamshivam/food-app-frontend
 
 
 ## ⚙️ Backend (API)
 If you already have a .env file on your host, you can pass all variables at once with --env-file:
 
-### bash
+### 
 
-docker run --env-file .env -p 4000:4000 satyamshivam/food-app-backend
+    docker run --env-file .env -p 4000:4000 satyamshivam/food-app-backend
 
 or you can pass individually:
 
-### bash
+### 
 
-docker run \
--e MONGODB_CONNECTION_URI="mongodb_atlas_uri" \
--e SECRET_KEY="some_random_string" \
--e STRIPE_SECRET_KEY="Your_stripe_apikey" \
--p 4000:4000 \
-satyamshivam/food-app-backend 
+    docker run \
+    -e MONGODB_CONNECTION_URI="mongodb_atlas_uri" \
+    -e SECRET_KEY="some_random_string" \
+    -e STRIPE_SECRET_KEY="Your_stripe_apikey" \
+    -p 4000:4000 \
+    satyamshivam/food-app-backend 
 
 ## 📊 Admin Dashboard
 
-### bash
+### 
 
-docker run -p 5174:5174 satyamshivam/food-app-admin
+    docker run -p 5174:5174 satyamshivam/food-app-admin
