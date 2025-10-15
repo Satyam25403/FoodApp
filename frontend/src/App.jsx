@@ -8,7 +8,7 @@ import Footer from './components/Footer/Footer';
 import LoginPopUp from './components/LoginPopUp/LoginPopUp';
 import Verify from './pages/verify/Verify';
 import MyOrders from './pages/MyOrders/MyOrders';
-
+import {ToastContainer} from 'react-toastify'
 
 export const App = () => {
 
@@ -20,6 +20,7 @@ export const App = () => {
       {showLogin? <LoginPopUp setShowLogin={setShowLogin} /> : <></>}
 
       <div className='app'>
+        <ToastContainer/>
         <Navbar setShowLogin={setShowLogin}/>
     
         {/* create multiple routes for the app component: path and the corresponding jsx file to render*/}

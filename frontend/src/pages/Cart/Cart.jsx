@@ -2,10 +2,23 @@ import { useContext } from 'react'
 import './Cart.css'
 import { StoreContext } from '../../Context/StoreContext'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
+
 const Cart = () => {
 
-  const {cartItems,food_list,removeFromCart, getTotalCartAmount,url} =useContext(StoreContext)
+  const {cartItems,food_list,removeFromCart, getTotalCartAmount,url, token} =useContext(StoreContext)
   const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    const total = getTotalCartAmount();
+
+    if (!token || total === 0) {
+      toast.error("Not logged in or cart is empty");
+      navigate('/cart');
+    } else {
+      navigate('/order');
+    }
+  };
 
   return (
     <div className='cart'>
@@ -70,7 +83,7 @@ const Cart = () => {
           </div>
 
           {/* in routes place order component is at /order route */}
-          <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
+          <button onClick={()=>handleCheckout()}>PROCEED TO CHECKOUT</button>
 
         </div>
 
@@ -88,5 +101,7 @@ const Cart = () => {
     </div>
   )
 }
+
+
 
 export default Cart

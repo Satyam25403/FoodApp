@@ -3,6 +3,7 @@ import './Navbar.css'
 import { assets } from '../../assets/assets'
 import {Link, useNavigate} from 'react-router-dom'
 import { StoreContext } from '../../Context/StoreContext'
+import { HashLink } from 'react-router-hash-link';
 
 
 const Navbar = ({setShowLogin}) => {
@@ -35,10 +36,16 @@ const Navbar = ({setShowLogin}) => {
 
         {/* components of navbar: classNames are changed dynamically to active to apply active class properties {underlined effect} on the active tab */}
         <ul className="navbar-menu">
-          <Link onClick={()=>setMenu("home")} className={menu==="home"?"active":""}>home</Link>
-          <a to='/' href='#explore-menu' onClick={()=>setMenu("menu")} className={menu==="menu"?"active":""}>menu</a>
-          <a href='#app-download' onClick={()=>setMenu("mobile-app")} className={menu==="mobile-app"?"active":""}>mobile-app</a>
-          <a href='#footer' onClick={()=>setMenu("contact-us")} className={menu==="contact-us"?"active":""}>contact-us</a>
+          <Link to='/' onClick={()=>setMenu("home")} className={menu==="home"?"active":""}>home</Link>
+          <li>
+            <HashLink smooth to="/#explore-menu" onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>menu</HashLink>
+          </li>
+          <li>
+            <HashLink smooth to="/#app-download" onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}>mobile-app</HashLink>
+          </li>
+          <li>
+            <HashLink smooth to="/#footer" onClick={() => setMenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>contact-us</HashLink>
+          </li>          
         </ul>
         
 

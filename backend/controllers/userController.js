@@ -32,7 +32,7 @@ const loginUser=async(req,res)=>{
 }
 
 const createToken=(id)=>{
-    return jwt.sign({id},process.env.SECRET_KEY)
+    return jwt.sign({ id }, process.env.SECRET_KEY, { expiresIn: "1d" });
 }
 
 
